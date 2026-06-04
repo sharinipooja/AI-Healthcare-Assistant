@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<h1>Prediction Result</h1>
+
+<h2>Predicted Disease: {{ disease }}</h2>
+
+<h3>Medicines</h3>
+<ul>
+    {% for item in info.get('medicines', []) %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Health Advice</h3>
+<ul>
+    {% for item in info.get('advice', []) %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Foods To Eat</h3>
+<ul>
+    {% for item in info.get('foods_to_eat', []) %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Foods To Avoid</h3>
+<ul>
+    {% for item in info.get('foods_to_avoid', []) %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Recovery Time</h3>
+<p>{{ info.get('recovery_time','N/A') }}</p>
+```
+
+</div>
+
+</body>
+</html>

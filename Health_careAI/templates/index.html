@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediCare AI</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🏥 MediCare AI
+        </div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#predict">Prediction</a></li>
+            <li><a href="#tips">Health Tips</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <button onclick="toggleMode()" class="dark-btn">
+            🌙 Dark Mode
+        </button>
+
+    </nav>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>AI Healthcare Assistant</h1>
+
+            <p>
+                Predict diseases intelligently and get medicine
+                recommendations using Machine Learning and AI.
+            </p>
+
+            <a href="#predict" class="hero-btn">
+                Start Prediction
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="feature-section">
+
+        <div class="feature-card">
+            <h3>⚡ Fast Prediction</h3>
+            <p>Instant disease prediction using AI models.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>💊 Medicine Recommendation</h3>
+            <p>Get recommended medicines from healthcare database.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>📊 High Accuracy</h3>
+            <p>Random Forest Machine Learning Model.</p>
+        </div>
+
+    </section>
+
+    <div class="container">
+
+        <div class="form-card" id="predict">
+
+            <h2>Patient Information</h2>
+
+            <form method="POST">
+
+                <div class="grid">
+
+                    <div>
+                        <label>Age</label>
+                        <input type="number" name="age" required>
+                    </div>
+
+                    <div>
+                        <label>Blood Pressure</label>
+                        <input type="number" name="bp" required>
+                    </div>
+
+                    <div>
+                        <label>Cholesterol Level</label>
+                        <input type="number" name="chol" required>
+                    </div>
+
+                    <div>
+                        <label>Fever</label>
+                        <select name="fever">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Cough</label>
+                        <select name="cough">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Fatigue</label>
+                        <select name="fatigue">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Difficulty Breathing</label>
+                        <select name="breathing">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Gender</label>
+                        <select name="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Outcome</label>
+                        <select name="outcome">
+                            <option value="Positive">Positive</option>
+                            <option value="Negative">Negative</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Risk Level</label>
+                        <select name="risk">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" id="predictBtn">
+                    🔍 Predict Disease
+                </button>
+
+            </form>
+
+        </div>
+
+        {% if prediction %}
+
+        <div class="result-card">
+
+            <h2>Prediction Result</h2>
+
+            <div class="accuracy-box">
+                🎯 Model Accuracy : {{ accuracy }}
+            </div>
+
+            <div class="confidence-box">
+                📈 Prediction Confidence :
+                {{ confidence }}%
+            </div>
+
+            <div class="disease-card">
+
+                <h3>Detected Disease</h3>
+
+                <span class="badge">
+                    {{ prediction }}
+                </span>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>📋 Patient Summary</h3>
+
+                <p><strong>Age:</strong> {{ age }}</p>
+                <p><strong>Blood Pressure:</strong> {{ bp }}</p>
+                <p><strong>Cholesterol:</strong> {{ chol }}</p>
+                <p><strong>Risk Level:</strong> {{ risk }}</p>
+
+            </div>
+
+            <h3>💊 Recommended Medicines</h3>
+
+            <div class="medicine-grid">
+
+                {% for med in medicines %}
+
+                <div class="medicine-card">
+                    {{ med }}
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <br>
+
+            <a href="/download" class="download-btn">
+                📄 Download Report
+            </a>
+
+        </div>
+
+        <div class="tips-card" id="tips">
+
+            <h2>💡 Health Tips</h2>
+
+            <ul>
+
+                <li>Drink plenty of water.</li>
+
+                <li>Exercise regularly.</li>
+
+                <li>Get enough sleep.</li>
+
+                <li>Eat a balanced diet.</li>
+
+                <li>Visit a doctor if symptoms persist.</li>
+
+            </ul>
+
+        </div>
+
+        {% endif %}
+
+        <section class="about" id="about">
+
+            <h2>About MediCare AI</h2>
+
+            <p>
+                MediCare AI is a Machine Learning based healthcare
+                assistant that predicts diseases and recommends
+                medicines using patient symptoms and health
+                parameters.
+            </p>
+
+        </section>
+
+        <section class="contact" id="contact">
+
+            <h2>Contact</h2>
+
+            <p>Email : support@medicareai.com</p>
+
+            <p>Phone : +91 9876543210</p>
+
+        </section>
+
+    </div>
+
+    <footer>
+
+        © 2026 MediCare AI |
+        Disease Prediction & Medicine Recommendation System
+
+    </footer>
+
+    <script>
+
+        document.querySelector("form").onsubmit = function () {
+
+            document.getElementById("predictBtn").innerHTML =
+                "⏳ Predicting...";
+
+        }
+
+        function toggleMode() {
+
+            document.body.classList.toggle("dark");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
